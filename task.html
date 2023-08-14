@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<title>task0</title>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Створити клас, що дозволяє виконувати такі операції над масивами: знаходження кількості додатних, кількості від’ємних, кількість входжень деякого числа
+						(статичні методи)
+					</div>
+				</div>
+				<script>
+					//повіряємно на правильність
+					class Array {
+						#arr
+						constructor(arr) {
+							this.Arr = arr.flat(Infinity)
+						}
+						get Arr() {
+							return this.#arr
+						}
+						set Arr(array) {
+							for (const el of array) {
+								if (typeof el !== "number") throw new Error("non corect Array")
+							}
+							this.#arr = array
+						}
+					}
+
+					class KnowlageAboutArray {
+						static array = new Array([[2, 12, -1, 2, 2, 7, 88, 18, -1, -1]]).Arr
+						plusCount = KnowlageAboutArray.countTheNumberOfPositiveAndNegetive()[0]
+						minusCount = KnowlageAboutArray.countTheNumberOfPositiveAndNegetive()[1]
+						static number = 2
+						countOfnum = KnowlageAboutArray.getCountOfSomeNum()
+						static countTheNumberOfPositiveAndNegetive() {
+							let plusCount = 0
+							let minusCount = 0
+							for (const arrEl of KnowlageAboutArray.array) {
+								if (arrEl > 0) plusCount++
+								if (arrEl < 0) minusCount++
+							}
+							return [plusCount, minusCount]
+						}
+						static getCountOfSomeNum() {
+							if (!KnowlageAboutArray.array.includes(KnowlageAboutArray.number)) throw new Error("no such number in Array")
+							return KnowlageAboutArray.array.reduce((prevCount, el) => (el === KnowlageAboutArray.number ? prevCount + 1 : prevCount), 0)
+						}
+						toString() {
+							return `кількість додатніх ${this.plusCount} <br/> кількість відєних ${this.minusCount} <br/> кількість входжень числа ${KnowlageAboutArray.number} = ${this.countOfnum}`
+						}
+					}
+					let knowlageAboutArray = new KnowlageAboutArray()
+					document.write(knowlageAboutArray)
+				</script>
+			</div>
+		</main>
+	</body>
+</html>

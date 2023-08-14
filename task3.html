@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="css/nullstyle.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<title>task3</title>
+	</head>
+	<body>
+		<main class="page">
+			<div class="page__container">
+				<div class="task">
+					<div class="task__condition text">
+						Особиста бібліотека. Картотека домашньої бібліотеки: дані книги (автори (піб, рік народження, короткий опис), назва книги, жанр, видавництво (назва,
+						реєстраційний номер, рік засування)). Реалізувати розділи бібліотеки організувати додавання/вилучення книг та вибір книг за назвою, за ПІБ автора, за
+						видавництвом.
+					</div>
+				</div>
+				<script>
+					"use strict"
+					class Autor {
+						#brithYear
+						constructor(name, secondName, surName, brithYear, shortDescr) {
+							this.name = name
+							this.secondName = secondName
+							this.surName = surName
+
+							this.BrithYear = brithYear
+							this.shortDescr = shortDescr
+						}
+						get BrithYear() {
+							return this.#brithYear
+						}
+
+						set BrithYear(year) {
+							if (year >= new Date().getFullYear() - 10) throw new Error("Year of Brith is incorect")
+							this.#brithYear = year
+						}
+					}
+					class PublishingHouse {
+						#creatingYear
+						constructor(name, registretionNumber, creatingYear) {
+							this.name = name
+							this.registretionNumber = registretionNumber
+							this.CreatingYear = creatingYear
+						}
+						get CreatingYear() {
+							return this.#creatingYear
+						}
+						set CreatingYear(year) {
+							if (year > new Date().getFullYear()) throw new Error("Year of crating publishing house is incorect")
+							this.#creatingYear = year
+						}
+					}
+					class Book {
+						constructor(autor, bookName, genre, publishingHouse) {
+							this.autor = autor
+							this.bookName = bookName
+							this.genre = genre
+							this.publishingHouse = publishingHouse
+						}
+					}
+
+					let books = [
+						new Book(
+							new Autor("Іван", "Білик", "Іванович", 1900, "Наровися На волині у сімї стоматогів, в дитинстві багато читав "),
+
+							"Похід у Атлантиду",
+							"Пригодницько фантастичний",
+							new PublishingHouse("Smile", 3523, 2023)
+						),
+						new Book(
+							new Autor("Петро", "Прокопич", "Тарасович", 1780, "Наровися На Полтавищині у сімї фермерів, в дитинстстві багато працював на городі"),
+
+							"Ваилева Василина",
+							"Романитика",
+							new PublishingHouse("Rainbow", 5532, 2005)
+						),
+						new Book(
+							new Autor("Василь", "Ігнатюк", "Тарсович", 1777, "Наровися На Вінничинні у сімї кухарів, в дитинстстві багато допомагав батькам"),
+
+							"Тарасові пригоди",
+							"Романитика",
+							new PublishingHouse("Morning", 6678, 2001)
+						),
+					]
+					//=================================
+					class HomeBooks {
+						constructor(books) {
+							this.books = books
+							this.g = this.books[0].autor.name
+						}
+						addBook(book) {
+							this.books.push(book)
+						}
+						deleteBookbyAutor(userName, userSeconsName, userSurName) {
+							this.books = books.filter((book) => book.autor.name !== userName && book.autor.secondName !== userSeconsName && book.autor.surName !== userSurName)
+						}
+						deleteBookbyPublishingHouse(userPublishingHouseName) {
+							this.books = this.books.filter((book) => book.publishingHouse.name !== userPublishingHouseName)
+						}
+					}
+					let homeBooks = new HomeBooks(books)
+					homeBooks.addBook(
+						new Book(
+							new Autor("Павло", "Тичина", "Григорович", 1891, "Наровися У селів Пісках у сімї церковнослужителів, в дитинстві був обдарованим до навчання"),
+							"Плуг",
+							"Лірика",
+							new PublishingHouse("Shine", 2987, 1998)
+						)
+					)
+					homeBooks.deleteBookbyAutor("Павло", "Тичина", "Григорович")
+					homeBooks.deleteBookbyPublishingHouse("Morning")
+				</script>
+			</div>
+		</main>
+	</body>
+</html>
